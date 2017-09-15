@@ -15,9 +15,26 @@ var ListagemComponent = /** @class */ (function () {
     function ListagemComponent(service) {
         var _this = this;
         this.fotos = [];
-        service.lista()
-            .subscribe(function (fotos) { return _this.fotos = fotos; }, function (erro) { return console.log(erro); });
+        this.mensagem = "";
+        this.service = service;
+        var response = this.service.lista();
+        response.subscribe(function (fotos) { return _this.fotos = fotos; }, function (erro) { return console.log(erro); });
     }
+    ListagemComponent.prototype.remove = function (foto) {
+        var _this = this;
+        var response = this.service.remove(foto);
+        response.subscribe(function () {
+            // console.log("Foto Removida");
+            var novasFotos = _this.fotos.splice(0);
+            var indice = novasFotos.indexOf(foto);
+            novasFotos.splice(indice, 1);
+            _this.fotos = novasFotos;
+            _this.mensagem = "Foto Removida";
+        }, function (erro) {
+            console.log(erro);
+            _this.mensagem = "Foto NÃO Removida";
+        });
+    };
     ListagemComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

@@ -19,11 +19,24 @@ var FotoService = /** @class */ (function () {
         this.headers.append('Content-Type', 'application/json');
     }
     FotoService.prototype.lista = function () {
-        return this.http.get(this.url)
-            .map(function (res) { return res.json(); });
+        var response = this.http.get(this.url);
+        return response.map(function (res) { return res.json(); });
+    };
+    FotoService.prototype.buscaPorId = function (id) {
+        var response = this.http.get(this.url + '/' + id);
+        return response.map(function (res) { return res.json(); });
     };
     FotoService.prototype.cadastra = function (foto) {
-        return this.http.post(this.url, JSON.stringify(foto), { headers: this.headers });
+        if (foto._id) {
+            return this.http.put(this.url + '/' + foto._id, JSON.stringify(foto), { headers: this.headers });
+        }
+        else {
+            return this.http.post(this.url, JSON.stringify(foto), { headers: this.headers });
+        }
+    };
+    FotoService.prototype.remove = function (foto) {
+        // console.log(foto._id);
+        return this.http.delete(this.url + '/' + foto._id);
     };
     FotoService = __decorate([
         core_1.Injectable(),
