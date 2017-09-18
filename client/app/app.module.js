@@ -17,19 +17,15 @@ var foto_module_1 = require("./foto/foto.module");
 var painel_module_1 = require("./painel/painel.module");
 var app_routes_1 = require("./app.routes");
 var forms_1 = require("@angular/forms");
+var botao_module_1 = require("./botao/botao.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [
-                platform_browser_1.BrowserModule,
-                http_1.HttpModule,
-                painel_module_1.PainelModule,
-                foto_module_1.FotoModule,
-                app_routes_1.routing,
-                forms_1.FormsModule,
-                forms_1.ReactiveFormsModule
+                platform_browser_1.BrowserModule, http_1.HttpModule, painel_module_1.PainelModule, foto_module_1.FotoModule, app_routes_1.routing, forms_1.FormsModule,
+                forms_1.ReactiveFormsModule, botao_module_1.BotaoModule
             ],
             declarations: [app_component_1.AppComponent, listagem_component_1.ListagemComponent, cadastro_component_1.CadastroComponent],
             bootstrap: [app_component_1.AppComponent]

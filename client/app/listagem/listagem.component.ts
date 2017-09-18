@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { FotoComponent } from '../foto/foto.component';
 import { FotoService } from '../foto/foto.service';
+import { PainelComponent } from "../painel/painel.component";
 
 @Component({
     moduleId: module.id,
@@ -23,21 +24,25 @@ export class ListagemComponent {
         );
     }
 
-    remove(foto: FotoComponent){
+    remove(foto: FotoComponent, painel: PainelComponent){
+        
         let response = this.service.remove(foto);
         response.subscribe( () => {
-            // console.log("Foto Removida");
             
-            let novasFotos = this.fotos.splice(0)
-            let indice = novasFotos.indexOf(foto);
-            novasFotos.splice(indice, 1)
-            this.fotos = novasFotos;
-            this.mensagem = "Foto Removida"
+            painel.fadeOut(() => {
+                let novasFotos = this.fotos.splice(0)
+                let indice = novasFotos.indexOf(foto);
+                novasFotos.splice(indice, 1)
+                this.fotos = novasFotos;
+                this.mensagem = "Foto Removida"
+            })
+
         }, 
             erro => {
                 console.log(erro);
                 this.mensagem = "Foto NÃO Removida" ;
             }
         );
+        
     }
 }

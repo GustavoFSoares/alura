@@ -20,16 +20,17 @@ var ListagemComponent = /** @class */ (function () {
         var response = this.service.lista();
         response.subscribe(function (fotos) { return _this.fotos = fotos; }, function (erro) { return console.log(erro); });
     }
-    ListagemComponent.prototype.remove = function (foto) {
+    ListagemComponent.prototype.remove = function (foto, painel) {
         var _this = this;
         var response = this.service.remove(foto);
         response.subscribe(function () {
-            // console.log("Foto Removida");
-            var novasFotos = _this.fotos.splice(0);
-            var indice = novasFotos.indexOf(foto);
-            novasFotos.splice(indice, 1);
-            _this.fotos = novasFotos;
-            _this.mensagem = "Foto Removida";
+            painel.fadeOut(function () {
+                var novasFotos = _this.fotos.splice(0);
+                var indice = novasFotos.indexOf(foto);
+                novasFotos.splice(indice, 1);
+                _this.fotos = novasFotos;
+                _this.mensagem = "Foto Removida";
+            });
         }, function (erro) {
             console.log(erro);
             _this.mensagem = "Foto NÃO Removida";
